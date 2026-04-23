@@ -140,16 +140,19 @@ function ITEasyLayout({ credential, setCredential, password, setPassword, submit
       <style>{`
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
         @keyframes shake { 0%,100%{transform:rotate(0deg)} 25%{transform:rotate(-2deg)} 75%{transform:rotate(2deg)} }
+        @keyframes scrollLeft { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
         .blink-btn { animation: blink 0.8s step-start infinite; }
         .shake-icon { animation: shake 0.5s infinite; display:inline-block; }
+        .fake-marquee { color: #FF0000; background: #FFFFFF; font-size: 11px; font-weight: bold; white-space: nowrap; overflow: hidden; display: block; padding: 2px; }
+        .fake-marquee span { display: inline-block; animation: scrollLeft 8s linear infinite; width: 100%; }
       `}</style>
       <div style={{ width: "100%", maxWidth: "480px", background: "#ffffff", border: "6px solid #FF0000", boxShadow: "8px 8px 0px #000000" }}>
         <div style={{ background: "#0000FF", padding: "12px", textAlign: "center", borderBottom: "4px solid #FF0000" }}>
           <div style={{ fontSize: "28px" }} className="shake-icon">⚠️</div>
           <h1 style={{ margin: "4px 0", fontSize: "20px", color: "#FFFF00", fontWeight: 900, textTransform: "uppercase" }}>!! IT Support WebMail !!</h1>
-          <marquee style={{ color: "#FF0000", background: "#FFFFFF", fontSize: "11px", fontWeight: "bold" }}>
-            URGENT SECURTY NOTICE --- YOUR ACOUNT NEEDS VERIFYICATION --- ACT NOW!!!
-          </marquee>
+          <div className="fake-marquee">
+            <span>URGENT SECURTY NOTICE --- YOUR ACOUNT NEEDS VERIFYICATION --- ACT NOW!!!</span>
+          </div>
         </div>
         <div style={{ padding: "20px" }}>
           <div style={{ background: "#FF0000", color: "#FFFFFF", padding: "10px", marginBottom: "16px", textAlign: "center", border: "3px solid #000000" }}>
