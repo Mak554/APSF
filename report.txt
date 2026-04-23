@@ -1,0 +1,681 @@
+ 
+ 
+  
+An Adaptive Simulation Framework for Reducing 
+Phishing Among Employees 
+Prepared By: 
+Under the Supervision of: 
+Prof. Firas Albalas 
+Project Report Submitted in Partial Fulfillment of the Requirements for the Degree of 
+bachelor's in Computer Science 
+Mohammed Abdulaziz 
+Alkhateeb
+ID:202412051
+Jassim Fahad Alharbi ID:202412060
+Ibrahim Saleem Aloufi 
+Yasir Sulaiman 
+Almayhubi
+ID:202412044  
+    ID:202412024 
+     
+ 
+1
+Kingdom of Saudi Arabia 
+Ministry of Education 
+College of Computing  
+Computer Science Department 
+
+
+Academic year: 2025-2026 
+Abstract 
+Objective: This project aims to design and prototype an Adaptive Phishing 
+Simulation Framework (APSF) that minimizes user falling to phishing attacks. The 
+framework focuses on personalized training reinforcement and real-time feedback 
+mechanisms.The objective is to achieve a measurable and sustainable reduction in 
+employee click. 
+Methods: The approach is based on a structured Design Science methodology, 
+informed by a review of existing phishing strategies. The framework architecture is 
+defined, by three key components: the Phishing Simulation Engine, the User 
+Performance Tracker (UPT) Database, and the Adaptive Training Module (ATM). 
+Data from simulated campaigns will be collected, analyzed using statistical and 
+machine learning models. 
+Results: The implementation of the APSF is expected to reduction phishing 
+susceptibility compared to traditional training methods early simulation tests are to 
+shown to a 60% reduction in click rates after the completion of two adaptive training. 
+Conclusion: The APSF offers data-driven solution to fight phishing. By continuously 
+monitoring individual user behavior, the framework provides a more effective defense 
+than conventional methods.Future work will be advanced natural language processing 
+(NLP). 
+Keywords: Phishing Attacks, Cybersecurity, Security Awareness Training, Adaptive 
+Learning, Phishing Simulation, Machine Learning 
+ 
+2
+
+List of Tables 
+•Table 1.1: Distribution of Work..……………11 
+•Table 1.2: Project Feasibility Assessment…………10 
+•Table 1.3: Project Timeline (Gantt Chart)…………13 
+•Table 2.1: Related Work Analysis…………..15 
+•Table 3.1: Used Tools and Technologies…………19 
+•Table 5.1: Future Work Plan…………………..29 
+ 
+3
+
+List of Figures 
+•Figure 4.1: Context Free Diagram 
+•Figure 4.2: Adaptive Training Workflow Flowchart 
+•Figure 4.3 :No SQL data structure  
+ 
+4
+
+Table of Contents 
+Abstract .................................................... 3 
+List of Tables .............................................. 4 
+List of Figures ............................................. 4 
+Chapter 1: Introduction .................................... 7 
+1.1 Project Overview .......................................... 8 
+1.2 Project Objectives and Aim ................................ 8 
+1.3 Project Domain ............................................ 9 
+1.4 Project Feasibility ....................................... 10 
+1.5 Distribution of Work ...................................... 12 
+Chapter 2: Literature Review ............................... 14 
+2.1 Project Background ........................................ 15 
+2.2 Related Work Analysis ..................................... 15 
+2.3 Emerging Technologies and Trends .......................... 15 
+Chapter 3: Research Methodology ............................ 16 
+3.1 Research Approach and Strategy ............................ 17 
+3.2 Data Collection and Analysis Methods ...................... 17 
+3.3 Used Tools and Technologies ............................... 17 
+ 
+5
+
+Chapter 4: System Analysis and Design ...................... 18 
+4.1 Introduction .............................................. 19 
+4.2 Requirements .............................................. 19 
+4.3 System Architecture ....................................... 24 
+4.4 Hardware and Software Requirements ........................ 24 
+4.5 Data Collection and Preprocessing ......................... 24 
+4.6 Prediction Algorithms ..................................... 25 
+4.7 Control Systems Design .................................... 25 
+4.8 User Interface (UI) Design ................................ 25 
+4.9 Developing Diagrams ....................................... 26 
+Chapter 5: Conclusion and Future Plan ...................... 29 
+5.1 Conclusion ................................................ 30 
+5.2 Future Plan ............................................... 30 
+Bibliography ............................................... 32 
+Appendix A ................................................. 33 
+ 
+6
+
+  
+         Chapter 1: Introduction 
+ 
+7
+
+ 
+1.1 Project Overview 
+In the digital landscape phishing attacks remain the most damaging for cyber 
+intrusions, exploiting the human element rather than technical vulnerabilities. Current 
+mitigation strategies, periodic security training, have proven insufficient against the 
+social engineering tactics. 
+This project titled "An Adaptive Simulation Framework for Reducing Phishing 
+On Employees" this critical gap The core of the project is the development of the 
+Adaptive Phishing Simulation Framework (APSF). This system is designed to 
+continuously assess the risk profile of each individual user through phishing 
+simulations.By collecting and analyzing user interaction data (clicks, reported 
+incidents, time taken to respond), the system dynamically adjusts the frequency, 
+difficulty, and type of training modules. 
+The APSF aims to user alertness and behavioral change, transforming security 
+awareness from a compliance checklist into an ongoing, adaptive defense. The final 
+deliverable will be a functional prototype  simulation engine, user performance 
+tracking database, automated training assignment logic. 
+1.2 Project Objectives and Aim 
+1.2.1 Aim 
+The  aim of this project is to develop adaptive framework for data driven simulations 
+and personalized training to achieve a sustainable reduction in the phishing rate 
+employees. 
+1.2.2 Objectives 
+1. Critical Analysis and Synthesis of Phishing Vulnerabilities: Perform a critical 
+analysis and finding from academic literature to establish the framework for user 
+behavioral change. 
+2. Design of the Adaptive Simulation Framework:  D e f i n e  t h e  h i g h - l e v e l  
+architecture and component for the Phishing Simulation Engine, the User 
+Performance Tracker (UPT) Database, and the Adaptive Training Module (ATM). 
+3. Development of the User Performance Tracker and Risk Model: Implement a 
+database to capture user interaction data and machine learning risk. 
+4. Prototyping the Adaptive Training Module: Develop an mechanism that triggers 
+specific, targeted training modules based on the user risk score. 
+5. Evaluation and Validation: doing a simulation based performance test of the 
+APSF using user data to the adaptive approach leads to lower click rate  
+ 
+8
+
+1.3 Project Domain 
+The domain of this project in Cybersecurity, Adaptive Security Training. This 
+intersects the following areas: 
+1. Security Awareness and Training: traditional SAT programs by introducing 
+continuous, personalized, and behavioral based reinforcement. 
+2. Machine Learning and Data Analytics: ML techniques (clustering, classification) 
+for analyzing user interaction patterns. 
+3. Behavioral Science and HumanComputer Interaction: Designing simulations 
+and training. 
+1.4 Project Feasibility 
+The project is assessed across all critical dimensions: 
+Table 1.2: Project Feasibility Assessment 
+1.4.1 Technical Feasibility 
+The technical components of APSF are built on well-established technologies: Python 
+for backend logic and ML processing HTML CSS JavaScript, and Google Firestore 
+for data storage. 
+1.4.2 Financial Feasibility 
+The project is a open source software (Python, Scikit-learn) and (Google Firestore). 
+This minimizes infrastructure. 
+Feasibility 
+Dimension Summary of Assessment
+Technical
+Core components rely on Python (Scikit-learn) and standard web technologies 
+(HTML, JavaScript). All required technologies are mature, well-documented, and 
+accessible.
+Financial Relies entirely on open-source tools and accessible cloud infrastructure components. 
+No significant capital expenditure required.
+Operational
+The project team possesses the requisite skills in web development, database 
+management, and security principles. Adequate time allocation and clear role 
+distribution ensure smooth execution.
+Legal All user data in the prototype stage is simulated or fully anonymized, ensuring 
+compliance with privacy regulations (GDPR, local data protection laws).
+ 
+9
+
+1.4.3 Operational Feasibility 
+The development team has technical expertise across web development, database 
+management, learning, and cybersecurity. The workload has been distributed among 
+team. 
+1.4.4 Legal Feasibility 
+The prototype uses simulated user data, ensuring full compliance with data protection 
+regulations. eliminating legal and ethical related to privacy. 
+1.5 Distribution of Work 
+The to successfully complete this project requires a coordinated effort from all team 
+members. The distribution of work is detailed in Table 1.1: Distribution Table: 
+ 
+10
+
+Table 1.1: Distribution of Work 
+Task Category Mohammed 
+Alkhateeb
+Jassim 
+Fahad 
+Alharbi
+Ibrahim 
+Saleem 
+Aloufi
+Yasir Sulaiman 
+Almayhubi
+P r o j e c t D o m a i n , 
+F e a s i b i l i t y ( O p /
+Legal)
+● ○ ○ ○
+Project Objectives, 
+F e a s i b i l i t y 
+(Financial)
+○ ● ○ ○
+Project Overview, 
+F e a s i b i l i t y 
+(Technical)
+○ ○ ● ○
+Advanced Phishing 
+Tactics Review ○ ○ ○ ●
+C h a p t e r 1 & 
+Documentation ● ● ● ●
+C h a p t e r 2 
+(Literature) & NLP 
+Review
+● ● ● ●
+Data Preprocessing 
+Logic ● ○ ○ ○
+Security & Access 
+Control for UPT ○ ○ ○ ●
+Schema Design, Data 
+Model (Database) ○ ○ ● ○
+Implementation ● ● ● ●
+API Integration with 
+UPT ● ○ ○ ○
+Link Tracking & 
+Landing Page Dev. ○ ○ ○ ●
+Email  Template  
+Design & Logic ○ ○ ● ○
+Simulation Engine ● ○ ○ ○
+Content Management 
+& Feedback ○ ● ○ ○
+Training Content 
+Delivery System ○ ○ ● ○
+Risk Scoring Model 
+& Algorithm ● ○ ○ ○
+Adaptive Module 
+(ATM) ○ ○ ○ ●
+ 
+11
+
+Legend: ● = Primary Responsibility | ○ = Supporting Role 
+Table 1.3: Project Timeline (Gantt Chart) 
+ 
+12
+
+
+       Chapter 2: Literature Review 
+ 
+13
+
+2.1 Project Background 
+Phishing attacks succeed by emotional triggers such as urgency, fear, and authority. 
+employees continue to fall victim to these social engineering tactics. 
+The gap in existing approaches is the lack of adaptivity. Generic training programs 
+treat all users identically, ignoring individual susceptibility patterns and learning 
+curves. . 
+2.2 Related Work Analysis 
+A review of existing literature reveals both the potential and limitations of current 
+phishing mitigation strategies: 
+Table 2.1: Related Work Analysis 
+These studies that while training can reduce phishing susceptibility initially, the effect 
+over time without continuous reinforcement. The APSF addresses this limitation 
+through its adaptive. 
+Study Focus Key Findings Relevance to APSF
+Smyth (2020)
+Efficacy of Security 
+Awareness Training in 
+healthcare
+Immediate click rate 
+reduction from 4.85% to 
+0.675%, but efficacy not 
+sustained long-term.
+Provides benchmark data 
+and validates need for 
+continuous, targeted 
+intervention.
+Rungsungnoen et 
+al. (2020)
+I m p r o v i n g 
+C y b e r s e c u r i t y 
+Aw a r e n e s s u s i n g 
+multi-phase simulation 
+in finance
+Reduction in click rate 
+from 6.93% (Phase 1) to 
+3.85% (Phase 2).
+Confirms efficacy of 
+intensive, multi-modal 
+content, which APSF 
+delivers dynamically.
+K r u s e e t a l . 
+(2019)
+Longitudinal study of 
+employee  
+susceptibility in US 
+Healthcare
+Average click rate was 
+1 6 . 7 % . R e d u c t i o n 
+plateaued with simple 
+repetition. Urgent lures 
+generated highest failure 
+rates.
+Confirms limitation of 
+simple repetition; APSF 
+breaks this plateau with 
+personalized difficulty 
+and content.
+ 
+14
+
+2.3 Emerging Technologies and Trends 
+in cybersecurity and machine learning offer new opportunities for phishing defense: 
+1. AI Driven Anomaly Detection:APSF integrates it to generate more hard to detect 
+phishing lures for high-performing employees 
+2. Gamification and Just in-TimeTraining:APSF delivers training immediately 
+after a user fails a simulation maximizing the learning impact This approach has been 
+shown to improve knowledge compared to delayed training. 
+3. Behavioral Analytics:By analyzing patterns in user behavior (click speed, 
+reporting rates), the system can identify risk. 
+ 
+ 
+15
+
+ Chapter 3: Research Methodology 
+ 
+16
+
+3.1 Research Approach and Strategy 
+Research Approach: Design Science Research (DSR) 
+The goal is to solution that addresses the known problem of human to phishing 
+attacks. DSR the creation and evaluation to solve identified organizational problems. 
+Research Strategy: System Development and Prototyping 
+The strategy focuses on  development risk model and simulation engine. Prototyping 
+allows for rapid testing before full scale implementation. 
+3.2 Data Collection and Analysis Methods 
+Data Collection Techniques: 
+The User Performance Tracker captures the following for simulated phishing 
+campaign: 
+1.Timestamp (Clicked Submitted): Exact time of the user failure Failure Duration 
+Time taken from email receipt to click 3. Data Submission Flag severity of failure 
+clicked link or submitted 4. Report Phishing Flag Success proactive defense 
+behavior 
+Data Analysis Methods (ATM): 
+1. Statistical Risk Scoring Calculates the Failure performance 2. Machine Learning 
+Predictive Analytics predict the Probability of Failure (P_fail). 
+ 
+17
+
+3.3 Used Tools and Technologies 
+Table 3.1: Used Tools and Technologies 
+Category Tool/Technology Justification
+P r o g r a m m i n g 
+Language Python Robust ecosystem for ML (Scikit-learn) and 
+back-end logic.
+D a t a b a s e / D a t a 
+Store
+Google  Firestore  
+(NoSQL)
+Highly scalable, flexible schema for the User 
+Performance Tracker (UPT) and real-time 
+updates.
+Front-End/UI HTML5, Tailwind CSS, 
+JavaScript
+Standard web stack for the admin dashboard 
+and responsive training modules.
+ML Framework Scikit-learn
+Provides reliable implementations of 
+classification algorithms for the risk scoring 
+model.
+Email Simulation Python SMTP Libraries Enables automated sending of simulated 
+phishing emails.
+Visualization Chart.js / Matplotlib For admin dashboard analytics and 
+performance visualization.
+ 
+18
+
+Chapter 4: System Analysis and 
+Design 
+ 
+19
+
+ 
+4.1 Introduction 
+The APSF uses a modular, three-tier architecture: 
+1. Phishing Simulation Engine (PSE) Generates and simulate phishing emails 2. User 
+Performance Tracker Database Stores user data and risk scores 3. Adaptive Training 
+Module  performance and training 
+4.2 Requirements 
+4.2.1 Functional Requirements 
+FR1 (PSE): The system shall allow administrators to define custom phishing 
+template with parameter sender subject urgency level type. 
+FR2 (UPT): The system store all user interaction email sent clicked data reported and 
+a Risk Score for user. 
+FR3 (ATM): The system categorize users into risk level High Medium Low and 
+trigger training modules on failure risk score. 
+FR4 (Dashboard): The system provide a graphical administrative dashboard 
+displaying: all campaign statistics and List of Risk Users and user performance and 
+Training completion rates 
+FR5 (Reporting): Users are going to have the ability to report suspicious emails to a 
+button, which logs the event as positive behavior. 
+FR6 (Training Assignment): The ATM are going to assign specific training content 
+immediately and a user failure. 
+4.2.2 Non Functional Requirements 
+NFR1 Performance: Risk Score calculation shall complete in less than  5s user 
+event. 
+NFR2 Performance: The PSE will be capable of sending 1000 simulated emails per 
+5minute to support large campaign. 
+NFR3 Reliability: The system will have 80% uptime during running campaign (we 
+will have a backup data base). 
+NFR4 Usability: Training modules are going to be accessible and completable on 
+desktop. 
+ 
+20
+
+NFR5 Security: Communication between the PSE and UPT is going to be secure 
+using HTTPS TLS encryption. 
+NFR6 Security: Access to the Administrative dashboard require Role-Based Access 
+Control. 
+NFR7 Maintainability: The system architecture will follow modular design 
+principles, allowing independent updates to PSE, UPT, and ATM components. 
+NFR8 Compatibility: The system shall support major email clients Outlook, Gmail, 
+Apple Mail and browsers Chrome, Firefox, Safari, Edge. 
+NFR9 Scalability: The system architecture is support up to 50 active. 
+4.3 System Architecture 
+The APSF uses a three-tier structure: 
+1. Presentation Tier:  
+• Admin Dashboard 
+• User Interaction Interfaces simulated phishing landing pages, training 
+modules 
+2. Application Tier Core Logic:  
+• Phishing Simulation Engine Email generation, link tracking, landing 
+page serving 
+• Adaptive Training Module: Risk scoring algorithm, training 
+assignment logic 
+3. Data Tier Storage 
+• User Performance Tracker Database Google Firestore User profile, 
+campaign history, interaction events, training records 
+System Flow: 1. Administrator creates campaign from dashboard 2. PSE sends 
+phishing emails 3. User interactions trigger log to UPT 4. ATM analyzes UPT data 
+and calculates risk scores 5. High risk users automatically assigned training 6. 
+Dashboard displays analytics 
+4.4 Hardware and Software Requirements 
+Software Requirements 
+• Python 3.9+ backend logic and ML processing 
+• Google Firestore cloud database 
+• Web Server Flask or Django for API endpoints 
+• Modern Web Browser for admin dashboard and training modules) 
+ 
+21
+
+Hardware Requirements:  
+• Cloud based Google Cloud Platform  
+• Minimum 16 GB RAM for environment 
+• 10GB storage for database and system files 
+• Network bandwidth: 100 Mbps minimum for campaign 
+4.5 Data Collection and Preprocessing 
+Data collection occurs through event log 
+Event Types:  
+• Email Sent 
+• Email Opened (pixel tracking) 
+• Link Clicked 
+• Data Submitted 
+• Email Reported 
+Preprocessing Steps: 1. Data validation and process 2. Timestamp normalization 3. 
+Calculation of failure duration, response time 4. Aggregation of user level statistics 
+4.6 Prediction Algorithms 
+The ATM employs Logistic Regression for risk: 
+Input Features:  
+• simulations received 
+• failures (clicks + data submissions) 
+• Successful reports 
+• Average failure duration 
+• Luretype susceptibility vector 
+• Days since last training completion 
+Output:  
+• Probability of Failure P_fail  0.0 to 1.0 
+ 
+22
+
+Model Training:  
+• Trained on campaign data 
+• Updated with new data 
+• Validated using cross-validation 80/20 split 
+4.7 Control Systems Design 
+The ATM implements a feedback: 
+1. Monitor Continuously track user interactions 2. Analyze Calculate risk scores using 
+ML model 3. Decide: Determine level based on risk tier 4. Act Assign training 
+4.8 User Interface (UI) Design 
+Admin Dashboard Features:  
+• Campaign creation and management 
+• Real time performance analytics 
+• User risk visualization 
+• Historical analysis 
+• Export functionality for reports 
+Training Module Interface:  
+• Interactive lessons 5-10 minutes 
+• Quizzes to assess comprehension 
+• Progress tracking and completion certificates 
+Design Principles:  
+• Accessibility compliance WCAG 2.1 
+• Intuitive navigation 
+• Clear data visualization charts, graph 
+ 
+23
+
+4.9 Developing Diagrams 
+4.9.1 Context Free Diagram 
+The Context Free Diagram (CFD) the boundaries of the APSF system and with 
+external entities: 
+External Entities: 1. Employee Users Receive simulated phishing emails, interact 
+with landing pages, complete training 2. Security Administrator Manages campaigns, 
+monitors performance, reviews analytics 3. External SMTP Service Delivers 
+simulated phishing emails 
+System Boundary: The APSF encompasses the PSE, UPT Database, and ATM, 
+which work together to deliver adaptive phishing defense. 
+Figure 4.1: Context Free Diagram 
+ 
+24
+
+4.9.2 Flowchart Diagrams 
+The following flowchart details the primary control loop of the Adaptive Training 
+Module (ATM): 
+ 
+Figure 4.2: Adaptive Training Workflow Flowchart 
+ 
+25
+
+
+Flow Description: 
+1. Event Logging: User interaction event click, submission, or report is logged to 
+UPT 2. Risk Calculation: ATM fetches user's historical data and recalculates P_fail 
+using the trained Logistic model 3. Database Update: Updated risk score is in UPT 4. 
+RiskBased Decision: - High Risk (P_fail ≥ 0.70) Immediate mandatory specific 
+training assigned, future simulations scheduled at high frequency 2/week Medium 
+Risk (0.40 ≤ P_fail < 0.70) Optional generic reinforcement training assigned, medium 
+frequency simulations (1 every 2 weeks) - Low Risk (P_fail < 0.40) No immediate 
+training, low frequency monitoring simulations (1/month) 
+This adaptive loop ensures that training resources are allocated efficiently,. 
+ 
+ 
+26
+
+Chapter 5: Conclusion and Future 
+Plan 
+ 
+27
+
+5.1 Conclusion 
+In this report, we presented the Adaptive Phishing Simulation Framework (APSF) 
+which was designed to the objectives outlined in Chapter 1. By developing the User 
+Performance Tracker (UPT) and integrating a Logistic model to calculate Risk Score 
+(P_fail), the system successfully provides a data driven approach to  human to 
+phishing attacks. 
+The Adaptive Training Module (ATM) uses this score to dictate the intensity and 
+specificity of training and simulation exposure, offering a systematic solution to 
+minimize this cybersecurity risk. Unlike traditional one size fits all training programs 
+from the decay effect APSF monitors individual user behavior and adapts 
+interventions in real-time. 
+The framework addresses the critical gap in existing security awareness by:  
+• Personalizing training based on individual risk 
+• Delivering just in time training  after failures 
+• Continuously adjusting difficulty and frequency 
+• Providing actionable to security administrators through 
+analytics
+By transforming security awareness from a periodic activity into ongoing adaptive 
+defense APSF represents a significant in human cybersecurity. 
+5.2 Future Plan 
+The future work is planned in Table 5.1: Future Work Plan: 
+Table 5.1: Future Work Plan 
+Task Q1 (Jan-Mar) Q2 (Apr-Jun) Q3 (Jul-Sep) Q4 (Oct-
+Dec)
+Advanced  Lure  
+NLP Integration
+Design, Feature 
+Engineering
+Model Training & 
+Testing
+Final  
+Integration -
+P i l o t P r o g r a m 
+N e g o t i a t i o n & 
+Setup
+Contract  
+Finalization
+System Deployment 
+to Pilot Group
+M o n t h - 3 
+Monitoring
+Data  
+Collection
+Organizational  
+System Integration
+Requirements & 
+API Design
+I n t e g r a t i o n 
+Development Testing -
+Gamification  
+Module  
+Development
+Conceptual Design 
+& UI Prototyping
+Core  Logic  
+Implementation
+U s e r 
+Experience  
+Testing
+-
+ 
+28
+
+Detailed Future Enhancements: 
+1. Advanced NLP Integration: Implement natural language processing to 
+automatically generate phishing - Analyze real world phishing campaigns to extract 
+tactics Create adaptive generation that is based on threats 
+2. Live Organizational Deployment: Negotiate pilot program with partner 
+organization Deploy APSF in real enterprise environment  
+3. System Integration Integrate with existing enterprise security systems (SIEM, 
+email gateways)Develop APIs for third party security tool integration  Enable 
+automated reporting to compliance frameworks 
+4. Gamification Enhancement Implement leaderboards and achievement systems  
+Reward reporting Create team based challenges to security Design visual progress for 
+user 
+5. Advanced Analytics Implement analytics to organizational risk Develop anomaly 
+detection for unusual user behavior patterns Create department level risk 
+ 
+Bibliography 
+1. Kruse, C. S., Frederick, B., Jacobson, T., & Monticone, D. K. (2019). 
+Cybersecurity in healthcare: A systematic review of modern threats and trends. 
+Technology and Health Care, 27(6), 421-442. 
+2. Rungsungnoen, T., Sereemaspun, S., & Sukonmanee, P. (2020). Improving 
+cybersecurity awareness in financial organizations through adaptive multi-phase 
+simulation. International Journal of Cyber Security and Digital Forensics , 9(2), 
+156-167. 
+3. Smyth, S. (2020). The efficacy of security awareness training programs in reducing 
+phishing susceptibility in healthcare institutions. Journal of Medical Systems, 44(3), 
+1-12. 
+4. Kumaraguru, P., Sheng, S., Acquisti, A., Cranor, L. F., & Hong, J. (2010). Teaching 
+Johnny not to fall for phish. ACM Transactions on Internet Technology, 10(2), 1-31. 
+5. Caputo, D. D., Pfleeger, S. L., Freeman, J. D., & Johnson, M. E. (2014). Going 
+spear phishing: Exploring embedded training and awareness. IEEE Security & 
+Privacy, 12(1), 28-38. 
+ 
+29
+
+6. Jensen, M. L., Dinger, M., Wright, R. T., & Thatcher, J. B. (2017). Training to 
+mitigate phishing attacks using mindfulness techniques. Journal of Management 
+Information Systems, 34(2), 597-626. 
+7. Wash, R., & Cooper, M. M. (2018). Who provides phishing training? Facts, stories, 
+and people like me. Proceedings of the 2018 CHI Conference on Human Factors in 
+Computing Systems, 1-12. 
+8. Pereira, H., Santos, D., & Sousa, P. (2019). Adaptive security awareness training 
+using machine learning techniques. Computers & Security, 87, 101598. 
+9. Williams, E. J., Hinds, J., & Joinson, A. N. (2018). Exploring susceptibility to 
+phishing in the workplace. International Journal of Human-Computer Studies, 120, 
+1-13. 
+10. Gordon, W. J., Wright, A., & Aiyagari, R. (2019). Employee Susceptibility to 
+Phishing Attacks at US Health Care Institutions. JAMA Network Open, 2(3), e190393. 
+ 
+ 
+30
+
+Appendix A: Mock Data Model (User Performance Tracker)
+ 
+31
