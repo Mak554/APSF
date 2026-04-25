@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 import base64
 
-from routers import users, campaigns, tracking, atm, dashboard
+from routers import users, campaigns, tracking, atm, dashboard, admin
 from models.schemas import EventType
 import upt_service, atm_service
 
@@ -31,11 +31,27 @@ app.add_middleware(
 # ─────────────────────────────────────────
 # Routers
 # ─────────────────────────────────────────
-app.include_router(users.router, prefix="/users", tags=["Users"])
+app.include_router(users.router,     prefix="/users",     tags=["Users"])
 app.include_router(campaigns.router, prefix="/campaigns", tags=["Campaigns"])
-app.include_router(tracking.router, prefix="/track", tags=["Event Tracking"])
-app.include_router(atm.router, prefix="/atm", tags=["Adaptive Training Module"])
+app.include_router(tracking.router,  prefix="/track",     tags=["Event Tracking"])
+app.include_router(atm.router,       prefix="/atm",       tags=["Adaptive Training Module"])
 app.include_router(dashboard.router, prefix="/dashboard", tags=["Dashboard"])
+app.include_router(admin.router,     prefix="/admin",     tags=["Admin"])
+
+
+# ─────────────────────────────────────────
+# Auto-seed on startup (safe for cold-starts)
+# ─────────────────────────────────────────
+@app.on_event("startup")
+async def auto_seed():
+    """Automatically seeds the 3 real target users when the server starts."""
+    from routers.admin import seed_users_only
+    result = seed_users_only()
+    added = result.get("added", [])
+    if added:
+        print(f"[STARTUP] Auto-seeded {len(added)} user(s): {[u['email'] for u in added]}")
+    else:
+        print("[STARTUP] Users already present — skipping seed.")
 
 
 # ─────────────────────────────────────────

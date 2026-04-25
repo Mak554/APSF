@@ -165,6 +165,8 @@ export default function DashboardPage() {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [isDemo, setIsDemo] = useState(false);
+  const [resetting, setResetting] = useState(false);
+  const [resetMsg, setResetMsg] = useState<string | null>(null);
 
   const fetchStats = async () => {
     setLoading(true);
@@ -182,6 +184,23 @@ export default function DashboardPage() {
   };
 
   useEffect(() => { fetchStats(); }, []);
+
+  const resetDb = async () => {
+    if (!confirm("Reset the database? This will wipe all campaigns and re-seed the 3 target employees.")) return;
+    setResetting(true);
+    setResetMsg(null);
+    try {
+      const res = await fetch(`${API_URL}/admin/reset`, { method: "POST" });
+      const data = await res.json();
+      setResetMsg(`✅ ${data.message}`);
+      await fetchStats();
+    } catch {
+      setResetMsg("❌ Reset failed — is the backend online?");
+    } finally {
+      setResetting(false);
+      setTimeout(() => setResetMsg(null), 4000);
+    }
+  };
 
   const s = stats;
 
@@ -203,6 +222,11 @@ export default function DashboardPage() {
               ⚠ Demo Mode – Backend Offline
             </span>
           )}
+          {resetMsg && (
+            <span style={{ fontSize: 11, color: resetMsg.startsWith("✅") ? "#4ade80" : "#f87171", background: resetMsg.startsWith("✅") ? "rgba(34,197,94,0.1)" : "rgba(239,68,68,0.1)", border: `1px solid ${resetMsg.startsWith("✅") ? "rgba(34,197,94,0.3)" : "rgba(239,68,68,0.3)"}`, padding: "3px 12px", borderRadius: 20 }}>
+              {resetMsg}
+            </span>
+          )}
           <Link href="/training" style={{ background: "rgba(168,85,247,0.1)", color: "#c084fc", border: "1px solid rgba(168,85,247,0.3)", padding: "8px 18px", borderRadius: 10, fontSize: 13, fontWeight: 600, textDecoration: "none", transition: "all 0.2s" }}>
             🎓 Academy
           </Link>
@@ -210,6 +234,32 @@ export default function DashboardPage() {
             + New Campaign
           </Link>
           <button onClick={fetchStats} title="Refresh" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", color: "#94a3b8", padding: "8px 12px", borderRadius: 10, cursor: "pointer", fontSize: 14 }}>↻</button>
+          <button
+            id="reset-db-btn"
+            onClick={resetDb}
+            disabled={resetting}
+            title="Wipe DB and re-seed the 3 target employees"
+            style={{
+              background: resetting ? "rgba(239,68,68,0.05)" : "rgba(239,68,68,0.12)",
+              border: "1px solid rgba(239,68,68,0.35)",
+              color: resetting ? "#94a3b8" : "#f87171",
+              padding: "8px 14px",
+              borderRadius: 10,
+              cursor: resetting ? "not-allowed" : "pointer",
+              fontSize: 13,
+              fontWeight: 600,
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+              transition: "all 0.2s",
+            }}
+          >
+            {resetting ? (
+              <><span style={{ display: "inline-block", animation: "spin 1s linear infinite" }}>⟳</span> Resetting…</>
+            ) : (
+              <>⟳ Reset DB</>
+            )}
+          </button>
         </div>
       </header>
 
