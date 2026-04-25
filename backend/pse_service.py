@@ -346,7 +346,7 @@ TEMPLATES = {
           <td align="right" style="padding:22px 36px;">
             <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:10px 16px;text-align:center;">
               <div style="font-size:9px;color:#a7f3d0;letter-spacing:1px;margin-bottom:3px;">REFERENCE ID</div>
-              <div style="font-size:13px;font-family:monospace;color:#ffffff;font-weight:700;">HR-GOSI-2025-{full_name[:4].upper()}</div>
+              <div style="font-size:13px;font-family:monospace;color:#ffffff;font-weight:700;">HR-GOSI-2025-{ref_id}</div>
             </div>
           </td>
         </tr></table>
@@ -670,13 +670,16 @@ def _build_email(
         pixel_url=tracking_urls["pixel_url"],
         report_link=tracking_urls["report_link"],
         greeting=random.choice(greetings),
-        sign_off=random.choice(sign_offs)
+        sign_off=random.choice(sign_offs),
+        ref_id=user_profile.full_name[:4].upper(),
     )
 
     msg = MIMEMultipart("alternative")
     
     # If subject is a list (randomized), pick one, else use the string
     subject = random.choice(template["subject"]) if isinstance(template["subject"], list) else template["subject"]
+    # Resolve any {full_name} placeholders in subject line (CEO hard template uses it)
+    subject = subject.replace("{full_name}", user_profile.full_name)
     msg["Subject"] = subject
     
     msg["From"] = f"{sender_name} <{sender_email}>"
