@@ -23,7 +23,7 @@ export default function NewCampaignPage() {
     sender_name: "IT Security Team",
     sender_email: "security@apsf.site",
     urgency_level: 3,
-    target_emails: [""],
+    targets: [{ name: "", email: "" }],
   });
 
   const update = (field: string, value: unknown) =>
@@ -34,11 +34,11 @@ export default function NewCampaignPage() {
     try {
       // 1. Create / fetch target users
       const userIds: string[] = [];
-      for (const email of form.target_emails.filter(Boolean)) {
+      for (const t of form.targets.filter(x => x.email)) {
         const res = await fetch(`${API_URL}/users/`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, full_name: email.split("@")[0], department: "General" }),
+          body: JSON.stringify({ email: t.email, full_name: t.name || t.email.split("@")[0], department: "General" }),
         });
         if (res.ok) {
           const u = await res.json();
@@ -63,6 +63,10 @@ export default function NewCampaignPage() {
         }),
       });
       const campaign = await camRes.json();
+      
+      // 3. Launch campaign automatically
+      await fetch(`${API_URL}/campaigns/${campaign.campaign_id}/launch`, { method: "POST" });
+      
       setResult({ campaign_id: campaign.campaign_id, name: campaign.name });
       setStep(3);
     } catch {
@@ -249,22 +253,33 @@ export default function NewCampaignPage() {
             <p className="text-xs text-slate-400">Add email addresses of employees to include in this simulation.</p>
 
             <div className="space-y-2">
-              {form.target_emails.map((email, i) => (
+              {form.targets.map((target, i) => (
                 <div key={i} className="flex gap-2">
                   <input
-                    type="email"
-                    value={email}
+                    type="text"
+                    value={target.name}
                     onChange={(e) => {
-                      const arr = [...form.target_emails];
-                      arr[i] = e.target.value;
-                      update("target_emails", arr);
+                      const arr = [...form.targets];
+                      arr[i].name = e.target.value;
+                      update("targets", arr);
+                    }}
+                    placeholder="Full Name (e.g. Ahmad Alkhateeb)"
+                    className="flex-1 bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500 text-sm"
+                  />
+                  <input
+                    type="email"
+                    value={target.email}
+                    onChange={(e) => {
+                      const arr = [...form.targets];
+                      arr[i].email = e.target.value;
+                      update("targets", arr);
                     }}
                     placeholder="employee@company.sa"
                     className="flex-1 bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500 text-sm"
                   />
-                  {form.target_emails.length > 1 && (
+                  {form.targets.length > 1 && (
                     <button
-                      onClick={() => update("target_emails", form.target_emails.filter((_, j) => j !== i))}
+                      onClick={() => update("targets", form.targets.filter((_, j) => j !== i))}
                       className="p-2 glass-card rounded-lg text-slate-500 hover:text-red-400"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -275,10 +290,10 @@ export default function NewCampaignPage() {
             </div>
 
             <button
-              onClick={() => update("target_emails", [...form.target_emails, ""])}
+              onClick={() => update("targets", [...form.targets, { name: "", email: "" }])}
               className="flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300"
             >
-              <Plus className="w-4 h-4" /> Add another email
+              <Plus className="w-4 h-4" /> Add another employee
             </button>
 
             <div className="flex gap-3 pt-2">
@@ -287,10 +302,10 @@ export default function NewCampaignPage() {
               </button>
               <button
                 onClick={handleSubmit}
-                disabled={loading || !form.target_emails.some(Boolean)}
+                disabled={loading || !form.targets.some(t => t.email)}
                 className="btn-primary flex-1 disabled:opacity-40"
               >
-                {loading ? "Creating Campaign…" : "🚀 Create Campaign"}
+                {loading ? "Creating & Launching…" : "🚀 Launch Campaign"}
               </button>
             </div>
           </div>
