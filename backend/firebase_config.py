@@ -1,7 +1,8 @@
 """
 Firebase DB configuration.
 
-Requires serviceAccountKey.json to be present in the directory.
+On Render: Secret files are placed at /etc/secrets/<filename>
+Locally:   serviceAccountKey.json lives in the backend directory
 """
 import os
 import sys
@@ -9,10 +10,13 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-_cred_path = os.getenv("FIREBASE_CREDENTIALS_PATH", "./serviceAccountKey.json")
+# Check Render's secret file path first, then fall back to local path
+_RENDER_PATH = "/etc/secrets/serviceAccountKey.json"
+_LOCAL_PATH = os.getenv("FIREBASE_CREDENTIALS_PATH", "./serviceAccountKey.json")
+_cred_path = _RENDER_PATH if os.path.exists(_RENDER_PATH) else _LOCAL_PATH
 
 if not os.path.exists(_cred_path):
-    print(f"[FATAL] Firebase credentials not found at {_cred_path}")
+    print(f"[FATAL] Firebase credentials not found at {_cred_path} or {_RENDER_PATH}")
     sys.exit(1)
 
 _db = None
