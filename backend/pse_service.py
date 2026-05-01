@@ -624,6 +624,7 @@ def create_campaign(campaign_data: CampaignCreate) -> Campaign:
         urgency_level=campaign_data.urgency_level,
         difficulty=campaign_data.difficulty,
         target_count=len(campaign_data.target_user_ids),
+        target_user_ids=campaign_data.target_user_ids,  # Store so launch endpoint can use them
         status="draft",
     )
     from firebase_config import get_db

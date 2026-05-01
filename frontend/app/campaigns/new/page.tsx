@@ -64,8 +64,9 @@ export default function NewCampaignPage() {
       });
       const campaign = await camRes.json();
       
-      // 3. Launch campaign automatically
-      await fetch(`${API_URL}/campaigns/${campaign.campaign_id}/launch`, { method: "POST" });
+      // 3. Fire launch in background — don't await (SMTP can take 30s+)
+      //    The backend will send the emails and update status independently.
+      fetch(`${API_URL}/campaigns/${campaign.campaign_id}/launch`, { method: "POST" }).catch(() => {});
       
       setResult({ campaign_id: campaign.campaign_id, name: campaign.name });
       setStep(3);
@@ -75,6 +76,7 @@ export default function NewCampaignPage() {
       setLoading(false);
     }
   };
+
 
   const TEMPLATE_TYPES = [
     { id: "it", label: "IT Security", icon: "🛡️" },

@@ -91,6 +91,7 @@ class Campaign(BaseModel):
     urgency_level: int
     difficulty: Difficulty = Difficulty.MEDIUM
     target_count: int
+    target_user_ids: List[str] = Field(default_factory=list, description="User IDs to send phishing emails to")
     emails_sent: int = 0
     clicks: int = 0
     submissions: int = 0
