@@ -2,10 +2,6 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { 
-  Users, ShieldAlert, Target, TrendingDown,
-  RefreshCcw, Plus, Activity, Mail, GraduationCap, AlertTriangle
-} from "lucide-react"; // Assuming lucide-react is installed, if not we can use generic SVGs. Wait, let me check if lucide-react is installed. Actually, I will use standard SVG icons to be safe and dependency-free.
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8009";
 
@@ -108,6 +104,7 @@ function RiskDonut({ data }: { data: Record<string, number> }) {
 
   useEffect(() => {
     if (!canvasRef.current) return;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let chart: any = null;
     let isMounted = true;
 
@@ -150,6 +147,7 @@ function CampaignBar({ campaigns }: { campaigns: CampaignRate[] }) {
 
   useEffect(() => {
     if (!canvasRef.current || !campaigns.length) return;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let chart: any = null;
     let isMounted = true;
 
@@ -162,11 +160,11 @@ function CampaignBar({ campaigns }: { campaigns: CampaignRate[] }) {
 
       // Create a gradient for the bars
       const ctx = canvasRef.current.getContext('2d');
-      let gradient = "rgba(59,130,246,0.7)";
+      let gradient: string | CanvasGradient = "rgba(59,130,246,0.7)";
       if (ctx) {
-        gradient = ctx.createLinearGradient(0, 0, 0, 300) as any;
-        (gradient as any).addColorStop(0, "rgba(59,130,246,0.9)");
-        (gradient as any).addColorStop(1, "rgba(29,78,216,0.4)");
+        gradient = ctx.createLinearGradient(0, 0, 0, 300);
+        gradient.addColorStop(0, "rgba(59,130,246,0.9)");
+        gradient.addColorStop(1, "rgba(29,78,216,0.4)");
       }
 
       chart = new ChartJS(canvasRef.current, {
@@ -356,7 +354,7 @@ export default function DashboardPage() {
             </div>
             {s ? <CampaignBar campaigns={s.campaign_click_rates} /> : (
               <div className="h-[220px] flex items-end justify-between gap-4 pb-4">
-                {[1,2,3,4,5].map(i => <div key={i} className="w-full bg-slate-800/50 rounded-t-lg animate-pulse" style={{ height: `${Math.random() * 60 + 20}%` }} />)}
+                {[1,2,3,4,5].map((_, idx) => <div key={idx} className="w-full bg-slate-800/50 rounded-t-lg animate-pulse" style={{ height: `${Math.random() * 60 + 20}%` }} />)}
               </div>
             )}
           </div>

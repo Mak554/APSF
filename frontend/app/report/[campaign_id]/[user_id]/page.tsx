@@ -15,7 +15,7 @@ export default function ReportPhishingPage() {
 
   useEffect(() => {
     if (!campaign_id || !user_id) {
-      setStatus("error");
+      setTimeout(() => setStatus("error"), 0);
       return;
     }
 
@@ -31,7 +31,7 @@ export default function ReportPhishingPage() {
         } else {
           setStatus("error");
         }
-      } catch (err) {
+      } catch {
         setStatus("error");
       }
     };

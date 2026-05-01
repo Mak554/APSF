@@ -146,7 +146,7 @@ export default function TrainingHub() {
                 Welcome back, {selectedUser ? selectedUser.full_name : "Employee"} <Award className="w-6 h-6 text-yellow-400" />
               </h1>
               <p style={{ color: "#94a3b8", fontSize: 14, maxWidth: 600, lineHeight: 1.5 }}>
-                Your Risk Tier is currently <strong style={{ color: selectedUser?.risk_tier === "High" ? "#f87171" : selectedUser?.risk_tier === "Medium" ? "#fbbf24" : "#4ade80" }}>{selectedUser?.risk_tier || "..."}</strong>. You have <strong style={{ color: pendingCount > 0 ? "#fbbf24" : "#4ade80" }}>{pendingCount} pending modules</strong>. Complete them to maintain your department's compliance rating and protect the organization.
+                Your Risk Tier is currently <strong style={{ color: selectedUser?.risk_tier === "High" ? "#f87171" : selectedUser?.risk_tier === "Medium" ? "#fbbf24" : "#4ade80" }}>{selectedUser?.risk_tier || "..."}</strong>. You have <strong style={{ color: pendingCount > 0 ? "#fbbf24" : "#4ade80" }}>{pendingCount} pending modules</strong>. Complete them to maintain your department&apos;s compliance rating and protect the organization.
               </p>
             </div>
             <div style={{ textAlign: "center", background: "rgba(255,255,255,0.03)", padding: "16px 24px", borderRadius: 12, border: "1px solid rgba(255,255,255,0.05)" }}>
@@ -194,7 +194,7 @@ export default function TrainingHub() {
         {!loadingModules && assignments.length === 0 && (
           <div style={{ textAlign: "center", padding: "60px 20px", background: "rgba(255,255,255,0.02)", borderRadius: 16, border: "1px dashed rgba(255,255,255,0.1)" }}>
             <Award className="w-12 h-12 text-green-500 mx-auto mb-4 opacity-50" />
-            <h3 style={{ fontSize: 18, color: "#fff", marginBottom: 8 }}>You're all caught up!</h3>
+            <h3 style={{ fontSize: 18, color: "#fff", marginBottom: 8 }}>You&apos;re all caught up!</h3>
             <p style={{ color: "#94a3b8" }}>You currently have no training assignments assigned by the ATM.</p>
           </div>
         )}
