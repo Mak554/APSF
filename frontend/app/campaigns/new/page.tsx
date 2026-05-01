@@ -21,7 +21,7 @@ export default function NewCampaignPage() {
     email_template_id: "tpl-it-medium",
     subject: "⚠️ Urgent: Your Password Expires in 24 Hours",
     sender_name: "IT Security Team",
-    sender_email: "security@company.sa",
+    sender_email: "security@apsf.site",
     urgency_level: 3,
     target_emails: [""],
   });
@@ -94,17 +94,17 @@ export default function NewCampaignPage() {
     if (type === "it") {
       update("subject", diff === "Hard" ? "Security Alert: Mandatory Policy Update NX-SEC-2025" : "Urgent: Your Password Expires in 24 Hours");
       update("sender_name", "IT Security Team");
-      update("sender_email", "security@company.sa");
+      update("sender_email", "security@apsf.site");
       update("phishing_type", "Credential_Harvest");
     } else if (type === "hr") {
       update("subject", diff === "Hard" ? "Action Required: 2025 GOSI & Health Insurance Re-verification" : "Important: Annual Benefits Enrollment Closing Soon");
       update("sender_name", "HR Department");
-      update("sender_email", "hr@company.sa");
+      update("sender_email", "hr@apsf.site");
       update("phishing_type", "Link_Only");
     } else {
       update("subject", diff === "Hard" ? "PRIVATE: Strategic Acquisition 'Project Falcon' - Urgent Wire Authorization" : "Confidential: Urgent Wire Transfer Required");
       update("sender_name", "Mohammed Al-CEO");
-      update("sender_email", "m.alghamdi@company.sa");
+      update("sender_email", "ceo@apsf.site");
       update("phishing_type", "Urgency");
     }
   };

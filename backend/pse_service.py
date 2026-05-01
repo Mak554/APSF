@@ -683,7 +683,7 @@ def _build_email(
     msg["Subject"] = subject
     
     msg["From"] = f"{sender_name} <{sender_email}>"
-    msg["To"] = user_profile.email
+    msg["To"] = f"{user_profile.full_name} <{user_profile.email}>"
     msg.attach(MIMEText(html_body, "html"))
     return msg
 
