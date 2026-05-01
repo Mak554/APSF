@@ -89,7 +89,7 @@ class Campaign(BaseModel):
     sender_email: str
     subject: str
     urgency_level: int
-    difficulty: Difficulty
+    difficulty: Difficulty = Difficulty.MEDIUM
     target_count: int
     emails_sent: int = 0
     clicks: int = 0

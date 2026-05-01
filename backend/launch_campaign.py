@@ -9,7 +9,7 @@ import json
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-BASE_URL = "http://localhost:8009"
+BASE_URL = "https://apsf.onrender.com"
 REAL_EMAILS = {"m7md-_-0101@hotmail.com", "jassim.kfo@gmail.com", "abra9778@gmail.com"}
 
 client = httpx.Client(base_url=BASE_URL, timeout=60)
@@ -34,13 +34,14 @@ if not real_ids:
 # 2. Create a fresh campaign targeting only the 3 real employees
 print("\n=== Creating targeted campaign ===")
 campaign_payload = {
-    "name": "Live Test - IT Security Alert",
+    "name": "Live Test - Hard IT Security Alert",
     "phishing_type": "Credential_Harvest",
-    "email_template_id": "tpl-001",
-    "subject": "Urgent: Your Password Expires in 24 Hours",
+    "email_template_id": "tpl-it-hard",
+    "subject": "[NexaCore Identity] Action Required: Zero-Trust Re-authentication",
     "sender_name": "IT Security Team",
-    "sender_email": "mak554321xi@gmail.com",
-    "urgency_level": 4,
+    "sender_email": "security@apsf.site",
+    "urgency_level": 5,
+    "difficulty": "Hard",
     "target_user_ids": real_ids,
 }
 

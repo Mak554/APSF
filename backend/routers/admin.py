@@ -1,9 +1,12 @@
 """
 routers/admin.py
 Admin utility endpoints — database reset/seed.
+Works with both Firestore and the local in-memory fallback via upt_service.
 """
 from fastapi import APIRouter
-import local_db
+import uuid
+import upt_service
+from models.schemas import UserCreate
 
 router = APIRouter()
 
@@ -17,28 +20,28 @@ SEED_USERS = [
 @router.post("/reset", tags=["Admin"])
 def reset_database():
     """
-    Wipes all in-memory data and re-seeds the 3 real target employees.
-    Use this after a Render cold-start wipes the DB.
+    Deletes all users, campaigns, events, and training assignments from the DB,
+    then re-seeds the 3 real target employees.
+    Works with both Firestore and local mode.
     """
-    # Clear all in-memory stores
-    local_db.users_db.clear()
-    local_db.campaigns_db.clear()
-    local_db.events_db.clear()
+    from firebase_config import get_db
+    db = get_db()
+
+    # Delete all documents in each collection
+    for collection_name in ["users", "campaigns", "events", "training-assignments"]:
+        docs = db.collection(collection_name).stream()
+        for doc in docs:
+            db.collection(collection_name).document(doc.id).delete()
 
     # Re-seed the 3 real users
-    import upt_service, uuid
     seeded = []
     for u in SEED_USERS:
-        uid = str(uuid.uuid4())
-        from models.schemas import UserProfile
-        profile = UserProfile(
-            user_id=uid,
+        profile = upt_service.create_user(UserCreate(
             full_name=u["full_name"],
             email=u["email"],
             department=u["department"],
-        )
-        local_db.users_db[uid] = profile
-        seeded.append({"user_id": uid, "full_name": u["full_name"], "email": u["email"]})
+        ))
+        seeded.append({"user_id": profile.user_id, "full_name": profile.full_name, "email": profile.email})
 
     return {
         "status": "reset_complete",
@@ -51,28 +54,25 @@ def reset_database():
 def seed_users_only():
     """
     Adds the 3 real target employees if they don't already exist (safe to call multiple times).
+    Uses upt_service so it works with both Firestore and local mode.
     """
-    import uuid
-    from models.schemas import UserProfile
+    existing = upt_service.get_all_users()
+    existing_emails = {u.email for u in existing}
 
     added = []
     already_exists = []
-
-    existing_emails = {u.email for u in local_db.users_db.values()}
 
     for u in SEED_USERS:
         if u["email"] in existing_emails:
             already_exists.append(u["email"])
             continue
-        uid = str(uuid.uuid4())
-        profile = UserProfile(
-            user_id=uid,
+
+        profile = upt_service.create_user(UserCreate(
             full_name=u["full_name"],
             email=u["email"],
             department=u["department"],
-        )
-        local_db.users_db[uid] = profile
-        added.append({"user_id": uid, "email": u["email"]})
+        ))
+        added.append({"user_id": profile.user_id, "email": profile.email})
 
     return {
         "status": "ok",

@@ -639,8 +639,24 @@ function TrainingPhase() {
     { icon: "🚩", title: "Red Flags to Spot", content: "• Urgency: \u201cexpires in 24 hours\u201d or \u201cdeadline today\u201d\n• Sender address doesn\u2019t match the real domain\n• You were directed via an emailed link\n• Requests for passwords or financial authorization via email" },
     { icon: "✅", title: "What To Do Instead", content: "1. Do NOT click links in urgent or financial emails.\n2. Navigate manually to the portal by typing the URL.\n3. Call the sender directly on a verified number to confirm.\n4. Use the \u2018Report Phishing\u2019 button in your email client." }
   ];
+
+  if (step >= lessons.length) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-slate-900 to-slate-800 font-sans">
+        <div className="max-w-xl w-full text-center space-y-6">
+          <div className="mx-auto w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center border-2 border-green-500/50">
+            <CheckCircle className="w-10 h-10 text-green-400" />
+          </div>
+          <h1 className="text-3xl font-bold text-white">Training Complete!</h1>
+          <p className="text-slate-400">Thank you for completing the immediate security training. You may now safely close this window.</p>
+        </div>
+      </div>
+    );
+  }
+
   const current = lessons[step];
   const progress = ((step + 1) / lessons.length) * 100;
+  
   return (
     <div className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-slate-900 to-slate-800 font-sans">
       <div className="max-w-xl w-full space-y-5">
@@ -668,7 +684,7 @@ function TrainingPhase() {
               Next <ArrowRight className="w-4 h-4" />
             </button>
           ) : (
-            <button onClick={() => (window.location.href = "/")} className="flex-1 py-3 rounded-xl text-sm font-semibold text-white flex items-center justify-center gap-2 bg-gradient-to-br from-green-700 to-green-600 shadow-lg shadow-green-600/30">
+            <button onClick={() => setStep(s => s + 1)} className="flex-1 py-3 rounded-xl text-sm font-semibold text-white flex items-center justify-center gap-2 bg-gradient-to-br from-green-700 to-green-600 shadow-lg shadow-green-600/30">
               <CheckCircle className="w-4 h-4" /> Complete Training ✓
             </button>
           )}

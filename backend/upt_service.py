@@ -8,15 +8,7 @@ import os
 from datetime import datetime
 from typing import List, Optional
 
-def _get_helpers():
-    """Returns (Increment, Query) from the correct backend."""
-    from firebase_config import USE_LOCAL
-    if USE_LOCAL:
-        import local_db
-        return local_db.Increment, local_db.Query
-    else:
-        from firebase_admin import firestore
-        return firestore.Increment, firestore.Query
+from firebase_admin import firestore
 from firebase_config import get_db
 from models.schemas import (
     UserCreate, UserProfile, InteractionEvent, EventType,
@@ -70,7 +62,6 @@ def update_user_risk(user_id: str, p_fail: float, risk_tier: RiskTier):
 def increment_user_stats(user_id: str, event_type: EventType, campaign_id: Optional[str] = None):
     """Atomically increments the relevant counter on a user's profile and updates behavioral vectors."""
     db = get_db()
-    Increment, _ = _get_helpers()
     ref = db.collection("users").document(user_id)
     doc = ref.get()
     
@@ -81,8 +72,8 @@ def increment_user_stats(user_id: str, event_type: EventType, campaign_id: Optio
     update_payload = {}
     
     if event_type in (EventType.LINK_CLICKED, EventType.DATA_SUBMITTED):
-        update_payload["total_failures"] = Increment(1)
-        update_payload["total_simulations"] = Increment(1)
+        update_payload["total_failures"] = firestore.Increment(1)
+        update_payload["total_simulations"] = firestore.Increment(1)
         update_payload["last_simulation_date"] = datetime.utcnow()
         
         # Adaptive Pattern updates
@@ -116,9 +107,9 @@ def increment_user_stats(user_id: str, event_type: EventType, campaign_id: Optio
         ref.update(update_payload)
         
     elif event_type == EventType.EMAIL_REPORTED:
-        ref.update({"total_reports": Increment(1)})
+        ref.update({"total_reports": firestore.Increment(1)})
     elif event_type == EventType.EMAIL_SENT:
-        ref.update({"total_simulations": Increment(1)})
+        ref.update({"total_simulations": firestore.Increment(1)})
 
 
 # ─────────────────────────────────────────
@@ -154,11 +145,10 @@ def log_event(
 def get_user_events(user_id: str) -> List[InteractionEvent]:
     """Fetches all interaction events for a given user."""
     db = get_db()
-    _, Query = _get_helpers()
     docs = (
         db.collection("events")
         .where("user_id", "==", user_id)
-        .order_by("timestamp", direction=Query.DESCENDING)
+        .order_by("timestamp", direction=firestore.Query.DESCENDING)
         .stream()
     )
     return [InteractionEvent(**d.to_dict()) for d in docs]
@@ -167,14 +157,13 @@ def get_user_events(user_id: str) -> List[InteractionEvent]:
 def _update_campaign_stats(campaign_id: str, event_type: EventType):
     """Internal helper: Atomically increments campaign-level counters."""
     db = get_db()
-    Increment, _ = _get_helpers()
     ref = db.collection("campaigns").document(campaign_id)
     update_map = {
-        EventType.EMAIL_SENT: {"emails_sent": Increment(1)},
+        EventType.EMAIL_SENT: {"emails_sent": firestore.Increment(1)},
         EventType.EMAIL_OPENED: {},
-        EventType.LINK_CLICKED: {"clicks": Increment(1)},
-        EventType.DATA_SUBMITTED: {"submissions": Increment(1)},
-        EventType.EMAIL_REPORTED: {"reports": Increment(1)},
+        EventType.LINK_CLICKED: {"clicks": firestore.Increment(1)},
+        EventType.DATA_SUBMITTED: {"submissions": firestore.Increment(1)},
+        EventType.EMAIL_REPORTED: {"reports": firestore.Increment(1)},
     }
     if update_map.get(event_type):
         ref.update(update_map[event_type])
@@ -196,10 +185,9 @@ def get_campaign(campaign_id: str) -> Optional[Campaign]:
 def get_all_campaigns() -> List[Campaign]:
     """Fetches all campaigns."""
     db = get_db()
-    _, Query = _get_helpers()
     campaigns = (
         db.collection("campaigns")
-        .order_by("created_at", direction=Query.DESCENDING)
+        .order_by("created_at", direction=firestore.Query.DESCENDING)
         .stream()
     )
     return [Campaign(**c.to_dict()) for c in campaigns]

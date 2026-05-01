@@ -36,7 +36,7 @@ try:
     msg["To"] = SMTP_USER
     
     print("[4] Sending test email to self...")
-    server.sendmail(SMTP_USER, SMTP_USER, msg.as_string())
+    server.sendmail(msg["From"], SMTP_USER, msg.as_string())
     print(f"[OK] Test email sent to {SMTP_USER}")
     
     server.quit()

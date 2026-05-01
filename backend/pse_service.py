@@ -762,7 +762,7 @@ def send_campaign_emails(campaign: Campaign, target_user_ids: List[str]) -> dict
                             sender_email=campaign.sender_email,
                             tracking_urls=tracking_urls,
                         )
-                        server.sendmail(SMTP_USER, user.email, msg.as_string())
+                        server.sendmail(campaign.sender_email, user.email, msg.as_string())
                         upt_service.log_event(
                             user_id=user_id,
                             campaign_id=campaign.campaign_id,
